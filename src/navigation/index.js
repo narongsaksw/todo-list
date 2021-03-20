@@ -2,13 +2,15 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
+
 const Stack = createStackNavigator();
 
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 
 export default function Navigation() {
-  const isAuth = false;
+  const isAuth = useSelector(state => state.user.isAuth);
   return (
     <NavigationContainer>
       {isAuth ? (
