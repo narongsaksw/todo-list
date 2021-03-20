@@ -15,8 +15,18 @@ export default function Navigation() {
   const isAuth = useSelector(state => state.user.isAuth);
   const navigationRef = useRef();
   const routeNameRef = useRef();
+  const linking = {
+    prefixs: ['todolist://'],
+    config: {
+      screens: {
+        Home: 'home',
+        Detail: 'detail',
+      },
+    },
+  };
   return (
     <NavigationContainer
+      linking={linking}
       ref={navigationRef}
       onReady={() =>
         (routeNameRef.current = navigationRef.current.getCurrentRoute().name)
