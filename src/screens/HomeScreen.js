@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import analytics from '@react-native-firebase/analytics';
 import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const taskCollection = firestore().collection('Tasks');
 const Home = () => {
@@ -35,8 +37,17 @@ const Home = () => {
 
   const completedTasks = list.filter(item => item.isCompleted);
   const incompletedTasks = list.filter(item => !item.isCompleted);
+
+  const history = useNavigation();
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
+      <Button
+        title="Go to Detail"
+        onPress={async () => {
+          history.navigate('Detail');
+          await analytics().logEvent('toDetail');
+        }}
+      />
       <Text>Todo List</Text>
       <TextInput
         value={input}
